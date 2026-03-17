@@ -1,0 +1,494 @@
+/* ============================================================
+   popup.css — Emoji & Symbols Copy and Paste Extension
+   Theme: matches emojisymbolscopy.com (HSL 325 pink palette)
+   Layout: 400 × 520px fixed, flex column
+   ============================================================ */
+
+/* ── CSS Variables ── */
+:root {
+  --primary:        hsl(325, 95%, 60%);
+  --primary-hover:  hsl(325, 95%, 54%);
+  --primary-light:  hsl(325, 95%, 94%);
+  --primary-border: hsl(325, 70%, 82%);
+  --background:     hsl(330, 50%, 99%);
+  --foreground:     hsl(335, 20%, 15%);
+  --secondary:      hsl(260, 60%, 92%);
+  --secondary-fg:   hsl(260, 30%, 30%);
+  --muted:          hsl(325, 15%, 55%);
+  --border:         hsl(325, 30%, 88%);
+  --radius:         8px;
+  --radius-sm:      5px;
+}
+
+/* ── Reset & Base ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 400px;
+  height: 520px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+               "Noto Sans", "DejaVu Sans",
+               "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 13px;
+  color: var(--foreground);
+  background: var(--background);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ── */
+.app-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 62px;
+}
+
+.app-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Logo as link — reset anchor defaults */
+a.app-logo {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+a.app-logo:hover .logo-text {
+  text-decoration: underline;
+}
+
+a.app-logo:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.logo-img {
+  border-radius: 6px;
+  display: block;
+}
+
+.logo-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+
+.search-wrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  height: 34px;
+  padding: 0 32px 0 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--foreground);
+  background: white;
+  outline: none;
+  transition: border-color 0.15s;
+
+  /* Remove browser search input decorations */
+  -webkit-appearance: none;
+}
+
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.search-input::placeholder {
+  color: var(--muted);
+}
+
+/* Hide native clear button in Chrome */
+.search-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.search-icon {
+  position: absolute;
+  right: 11px;
+  font-size: 16px;
+  color: var(--muted);
+  pointer-events: none;
+  line-height: 1;
+}
+
+/* ── Tab Navigation ── */
+.tab-nav {
+  flex-shrink: 0;
+  display: flex;
+  gap: 2px;
+  padding: 6px 12px;
+  background: var(--background);
+  border-bottom: 1px solid var(--border);
+  height: 44px;
+}
+
+.tab-btn {
+  flex: 1;
+  height: 30px;
+  padding: 0 4px;
+  border: 1.5px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--muted);
+  background: transparent;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--foreground);
+  background: var(--primary-light);
+  border-color: var(--primary-border);
+}
+
+.tab-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+.tab-btn--active {
+  color: var(--primary);
+  background: var(--primary-light);
+  border-color: var(--primary-border);
+  font-weight: 600;
+}
+
+/* ── Main Content Area ── */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 0;
+}
+
+/* Scrollbar (WebKit) */
+.content-area::-webkit-scrollbar {
+  width: 4px;
+}
+.content-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.content-area::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+.content-area::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-border);
+}
+
+/* ── Skeleton Loading ── */
+.skeleton-wrap {
+  padding: 12px;
+}
+
+.skeleton-row {
+  height: 14px;
+  background: linear-gradient(90deg, var(--border) 25%, var(--primary-light) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  width: 40%;
+}
+
+.skeleton-row--short {
+  width: 25%;
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.skeleton-item {
+  aspect-ratio: 1;
+  background: linear-gradient(90deg, var(--border) 25%, var(--primary-light) 50%, var(--border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* ── Recently Used ── */
+.recent-section {
+  padding: 8px 10px 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.recent-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2px;
+}
+
+.clear-recent-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 0 4px;
+  font-family: inherit;
+  line-height: 1;
+}
+
+.clear-recent-btn:hover {
+  color: var(--foreground);
+  text-decoration: underline;
+}
+
+/* ── Recently Used: per-item delete button ── */
+.recent-item-wrap {
+  position: relative;
+  flex: 0 0 auto;     /* Flex item: 取自然内容宽度，不伸缩 */
+  min-width: 36px;    /* 最小可点击尺寸 */
+  max-width: 160px;   /* 封顶超长序列，触发可见省略号而非静默裁剪 */
+  overflow: hidden;   /* 仅在 max-width 处裁剪 */
+}
+
+.delete-item-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  border: 1.5px solid var(--background);
+  cursor: pointer;
+  font-size: 9px;
+  padding: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  line-height: 1;
+}
+
+.recent-item-wrap:hover .delete-item-btn {
+  display: flex;
+}
+
+.delete-item-btn:hover {
+  background: var(--primary-hover);
+}
+
+/* ── Search Results ── */
+.search-results {
+  padding: 8px 10px;
+}
+
+.search-results-header {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 6px;
+  padding: 0 2px;
+}
+
+.search-empty {
+  padding: 24px 0;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ── Category Panel ── */
+.tab-panel {
+  padding: 4px 0 8px;
+}
+
+/* ── Section Heading (category name) ── */
+.section-heading {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 8px 12px 4px;
+}
+
+/* ── Symbol Grid ── */
+.symbol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(42px, 1fr));
+  gap: 2px;
+  padding: 2px 8px;
+}
+
+/* Lenny Face grid: wider cells for long text */
+.symbol-grid--lenny {
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+}
+
+/* Recently-used grid: Flexbox for mixed emoji/symbol/lenny content.
+   Grid is for homogeneous content (same width per type); Flexbox handles variable widths. */
+#recent-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 4px 8px;
+}
+
+/* ── Symbol Item (button) ── */
+.symbol-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  border-radius: var(--radius-sm);
+  font-size: 1.35rem;
+  line-height: 1;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  background: transparent;
+  transition: background 0.12s, border-color 0.12s, transform 0.08s;
+  user-select: none;
+  -webkit-user-select: none;
+  color: inherit;
+  padding: 2px;
+  min-width: 0;
+
+  /* Prevent text overflow for multi-char symbols */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.symbol-item:hover {
+  background: var(--primary-light);
+  border-color: var(--primary-border);
+}
+
+.symbol-item:active {
+  transform: scale(0.92);
+  background: var(--secondary);
+}
+
+.symbol-item:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+}
+
+/* Lenny Face: smaller text, allow wrapping display */
+.symbol-item--lenny {
+  font-size: 0.72rem;
+  height: 38px;
+  justify-content: flex-start;
+  padding: 0 8px;
+  letter-spacing: 0;
+  font-family: "Segoe UI", "Noto Sans", "DejaVu Sans", monospace, sans-serif;
+}
+
+/* Copied flash animation */
+.symbol-item--copied {
+  background: var(--primary-light);
+  border-color: var(--primary);
+  animation: copy-flash 0.35s ease-out;
+}
+
+@keyframes copy-flash {
+  0%   { background: var(--primary); }
+  100% { background: var(--primary-light); }
+}
+
+/* ── Category Section wrapper ── */
+.category-section {
+  /* Each category is a section, rendered lazily by IntersectionObserver */
+}
+
+/* ── Toast Notification ── */
+.toast {
+  position: fixed;
+  bottom: 42px; /* sits above footer */
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  opacity: 0;
+  pointer-events: none;
+  background: hsl(335, 25%, 15%);
+  color: white;
+  padding: 7px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  z-index: 100;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Footer ── */
+.app-footer {
+  flex-shrink: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid var(--primary-light);
+  background: hsl(325, 95%, 98%);
+}
+
+.footer-link {
+  font-size: 12.5px;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.12s;
+}
+
+.footer-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+.footer-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

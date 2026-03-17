@@ -1,0 +1,31 @@
+.DS_Store
+npm-debug.log*
+
+# Build scripts & Node tooling — internal only
+scripts/
+node_modules/
+package.json
+package-lock.json
+
+# Build artifacts (polyfill is generated; data & icons are committed directly)
+chrome-extension/browser-polyfill.min.js
+
+# Store submission guides — internal docs
+STORE_ASSETS_GUIDE.md
+STORE_LISTING_GUIDE.md
+
+# Build artifacts
+chrome-extension.zip
+dist/
+
+# AI reference images and processed store assets
+imgs/
+
+# Empty placeholder
+landing-page/
+
+# Strategy & private business docs — never commit to public repo
+STRATEGY.md
+STRATEGY*.md
+*.strategy.md
+_private/

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emoji &amp; Symbols Copy and Paste</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+
+  <!-- Header: Logo + Search -->
+  <header class="app-header">
+    <a href="https://emojisymbolscopy.com?utm_source=extension&utm_medium=popup_logo"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="app-logo"
+       aria-label="Visit EmojiSymbolsCopy.com">
+      <img src="icons/icon-48.png" alt="EmojiSymbols logo" class="logo-img" width="28" height="28">
+      <span class="logo-text">EmojiSymbols</span>
+    </a>
+    <div class="search-wrapper">
+      <input
+        type="search"
+        id="search-input"
+        class="search-input"
+        placeholder="Search 7500+ items..."
+        autocomplete="off"
+        autofocus
+        aria-label="Search emoji, symbols, and lenny faces"
+      >
+      <svg class="search-icon" aria-hidden="true" viewBox="0 0 16 16" width="14" height="14">
+        <circle cx="6.5" cy="6.5" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- Tab Navigation -->
+  <nav class="tab-nav" role="tablist" aria-label="Content type">
+    <button
+      role="tab"
+      class="tab-btn tab-btn--active"
+      id="tab-emoji"
+      data-tab="emoji"
+      aria-selected="true"
+      aria-controls="panel-emoji"
+      tabindex="0"
+    >Emojis</button>
+    <button
+      role="tab"
+      class="tab-btn"
+      id="tab-symbol"
+      data-tab="symbol"
+      aria-selected="false"
+      aria-controls="panel-symbol"
+      tabindex="-1"
+    >Symbols</button>
+    <button
+      role="tab"
+      class="tab-btn"
+      id="tab-lenny"
+      data-tab="lenny"
+      aria-selected="false"
+      aria-controls="panel-lenny"
+      tabindex="-1"
+    >Lenny Faces</button>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="content-area" id="content-area">
+
+    <!-- Loading skeleton -->
+    <div class="skeleton-wrap" id="skeleton">
+      <div class="skeleton-row"></div>
+      <div class="skeleton-row skeleton-row--short"></div>
+      <div class="skeleton-grid">
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+        <div class="skeleton-item"></div>
+      </div>
+    </div>
+
+    <!-- Recently Used (hidden until data loads and user has history) -->
+    <section class="recent-section" id="recent-section" hidden aria-label="Recently used">
+      <div class="recent-header">
+        <h2 class="section-heading">Recently Used</h2>
+        <button class="clear-recent-btn" id="clear-recent-btn" aria-label="Clear all recently used">Clear all</button>
+      </div>
+      <div class="symbol-grid" id="recent-grid" role="list" aria-label="Recently used symbols"></div>
+    </section>
+
+    <!-- Search Results (hidden until user searches) -->
+    <section class="search-results" id="search-results" hidden aria-label="Search results">
+      <div class="search-results-header" id="search-results-count"></div>
+      <div class="symbol-grid" id="search-grid" role="list" aria-label="Search results"></div>
+      <div class="search-empty" id="search-empty" hidden>
+        <span>No results for "<span id="search-query-display"></span>"</span>
+      </div>
+    </section>
+
+    <!-- Emoji Tab Panel -->
+    <div
+      id="panel-emoji"
+      role="tabpanel"
+      aria-labelledby="tab-emoji"
+      class="tab-panel"
+    ></div>
+
+    <!-- Symbol Tab Panel -->
+    <div
+      id="panel-symbol"
+      role="tabpanel"
+      aria-labelledby="tab-symbol"
+      class="tab-panel"
+      hidden
+    ></div>
+
+    <!-- Lenny Face Tab Panel -->
+    <div
+      id="panel-lenny"
+      role="tabpanel"
+      aria-labelledby="tab-lenny"
+      class="tab-panel"
+      hidden
+    ></div>
+
+  </main>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- Footer: Traffic to website -->
+  <footer class="app-footer">
+    <a
+      href="https://emojisymbolscopy.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="footer-link"
+      id="footer-link"
+    >More at emojisymbolscopy.com →</a>
+  </footer>
+
+  <!-- webextension-polyfill must load before popup.js -->
+  <script src="browser-polyfill.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
